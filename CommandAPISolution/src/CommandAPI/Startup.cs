@@ -8,6 +8,8 @@ using Microsoft.Extensions.Hosting;
 using Npgsql;
 
 using CommandAPI.Data;
+using AutoMapper;
+using System;
 
 namespace CommandAPI
 {
@@ -36,7 +38,11 @@ namespace CommandAPI
                 options.UseNpgsql(builder.ConnectionString);
             });
 
+            // Application Controllers
             services.AddControllers();
+
+            // DTO <---> Model Mapping
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             // Command Repository
             services.AddScoped<IPersistCommand, CommandRepository>();
