@@ -17,7 +17,9 @@ namespace CommandAPI.Data
 
         public bool SaveChanges()
         {
-            throw new NotImplementedException();
+            int entityCount = _context.SaveChanges();
+
+            return entityCount >= 0;
         }
 
         public IEnumerable<Command> GetAllCommands()
@@ -40,17 +42,23 @@ namespace CommandAPI.Data
 
         public void CreateCommand(Command command)
         {
-            throw new NotImplementedException();
+            if (command == null)
+                throw new ArgumentNullException(nameof(command));
+
+            _context.CommandItems.Add(command);
         }
 
         public void UpdateCommand(Command command)
         {
-            throw new NotImplementedException();
+            // No Implementation (EF will track entity updates for us)
         }
 
         public void DeleteCommand(Command command)
         {
-            throw new NotImplementedException();
+            if (command == null)
+                throw new ArgumentNullException(nameof(command));
+
+            _context.CommandItems.Remove(command);
         }
     }
 }

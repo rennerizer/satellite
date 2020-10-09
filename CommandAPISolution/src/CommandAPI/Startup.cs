@@ -1,3 +1,5 @@
+using System;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -5,11 +7,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
+using AutoMapper;
+
+using Newtonsoft.Json.Serialization;
+
 using Npgsql;
 
 using CommandAPI.Data;
-using AutoMapper;
-using System;
 
 namespace CommandAPI
 {
@@ -38,8 +42,11 @@ namespace CommandAPI
                 options.UseNpgsql(builder.ConnectionString);
             });
 
-            // Application Controllers
-            services.AddControllers();
+            // Application Controllers w/ Patch Support
+            services.AddControllers().AddNewtonsoftJson(setupAction =>
+            {
+                setupAction.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
 
             // DTO <---> Model Mapping
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
