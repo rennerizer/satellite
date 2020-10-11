@@ -32,6 +32,8 @@ namespace CommandAPI.Tests
             _mapper = new Mapper(_configuration);
         }
 
+        #region GetAllCommands Tests
+
         [Fact]
         public void GetAllCommands_ReturnZeroItems_WhenDBIsEmpty()
         {
@@ -104,6 +106,10 @@ namespace CommandAPI.Tests
             Assert.IsType<ActionResult<IEnumerable<CommandReadDTO>>>(result);
         }
 
+        #endregion
+
+        #region GetCommandByID Tests
+
         [Fact]
         public void GetCommandByID_Return404NotFound_WhenNonExistentIDProvided()
         {
@@ -167,6 +173,10 @@ namespace CommandAPI.Tests
             Assert.IsType<ActionResult<CommandReadDTO>>(result);
         }
 
+        #endregion
+
+        #region CreateCommand Tests
+
         [Fact]
         public void CreateCommand_ReturnCorrectResourceType_WhenValidObjectSubmitted()
         {
@@ -213,6 +223,10 @@ namespace CommandAPI.Tests
             Assert.IsType<CreatedAtRouteResult>(result.Result);
         }
 
+        #endregion
+
+        #region UpdateCommand Tests
+
         [Fact]
         public void UpdateCommand_Return204NoContent_WhenValidObjectSubmitted()
         {
@@ -253,6 +267,10 @@ namespace CommandAPI.Tests
             Assert.IsType<NotFoundResult>(result);
         }
 
+        #endregion
+
+        #region PartialUpdateCommand Tests
+
         [Fact]
         public void PartialUpdateCommand_Return404NotFound_WhenNonExistentResourceIDSubmitted()
         {
@@ -269,6 +287,10 @@ namespace CommandAPI.Tests
             // Assert
             Assert.IsType<NotFoundResult>(result);
         }
+
+        #endregion
+
+        #region DeleteCommand Tests
 
         [Fact]
         public void DeleteCommand_Return204NoContent_WhenValidResourceIDSubmitted()
@@ -309,6 +331,8 @@ namespace CommandAPI.Tests
             // Assert
             Assert.IsType<NotFoundResult>(result);
         }
+
+        #endregion
 
         private List<Command> GetCommands(int count)
         {
