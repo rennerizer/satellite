@@ -1,0 +1,14 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- task: UseDotNet@2
+- script: dotnet build CommandAPISolution/CommandAPISolution.sln --configuration $(buildConfiguration)
+  displayName: 'dotnet build $(buildConfiguration)'
+  
